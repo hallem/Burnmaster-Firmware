@@ -532,13 +532,15 @@ void readROM_GBA()
 
   FIL tf;
   UINT rdt;
+  char sfoldern[16];
   UINT wdt;
 
   if (f_open(&tf, numFileName, FA_READ) == FR_OK)
   {
-    if (f_read(&tf, &foldern, 4, &rdt) != FR_OK)
+    if (!f_gets(&sfoldern, 16, &tf))
     {
       foldern = -2;
+      print_Error("Can't read num file!", false);
     }
 
     f_close(&tf);
@@ -569,16 +571,12 @@ void readROM_GBA()
 
   if (f_open(&tf, numFileName, FA_CREATE_ALWAYS|FA_WRITE) == FR_OK)
   {
-    if (f_printf(&tf, "%d", foldern) > 0)
-    {
-      print_Error("Unable to write", false);
-    }
-
+    f_printf(&tf, "%d", foldern);
     f_close(&tf);
   }
   else
   {
-    print_Error("Unable to create nf", false);
+    print_Error("Can't create num file!", false);
   }
 
   // write the number to the file
