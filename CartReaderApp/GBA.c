@@ -532,6 +532,7 @@ void readROM_GBA()
 
   FIL tf;
   UINT rdt;
+  UINT wdt;
 
   if (f_open(&tf, numFileName, FA_READ) == FR_OK)
   {
@@ -568,10 +569,10 @@ void readROM_GBA()
 
   if (f_open(&tf, numFileName, FA_CREATE_ALWAYS|FA_WRITE) == FR_OK)
   {
-    if (f_write(&tf, &foldern, 4, &rdt) != FR_OK)
+    //if (f_write(&tf, &foldern, 4, &wdt) != FR_OK)
+    if (f_printf(&tf, "%d", foldern) > 0)
     {
-      foldern = -3;
-      save_dword(foldern);
+      print_Error("Unable to write", false);
     }
   }
 
@@ -600,7 +601,7 @@ void readROM_GBA()
     }
 
     // Write to SD
-    UINT wdt;
+    // UINT wdt; // commented out to move declaration higher -MJH
     f_write(&tf, sdBuffer, 512, &wdt);
   }
 
