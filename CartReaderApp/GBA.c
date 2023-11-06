@@ -567,13 +567,9 @@ void readROM_GBA()
   // save_dword(foldern); // comment out
   // open the file "/GBA/NUM/ROM/<romName>.txt" with FA_CREATE_ALWAYS|FA_WRITE (create or truncate)
 
-  char sfoldern[16];
-
-  sprintf(sfoldern, "%d", foldern);
-
   if (f_open(&tf, numFileName, FA_CREATE_ALWAYS|FA_WRITE) == FR_OK)
   {
-    if (f_write(&tf, sfoldern, 16, &wdt) != FR_OK)
+    if (f_printf(&tf, "%d", foldern) > 0)
     {
       print_Error("Unable to write", false);
     }
