@@ -640,7 +640,8 @@ void readSRAM_GBA(boolean browseFile, unsigned long sramSize, uint32_t pos)
     strcat(fileName, ".srm");
 
     // create a new folder for the save file
-    foldern = load_dword();
+    // foldern = load_dword();
+    foldern = load_foldern("GBA", "SAVE", romName);
     sprintf(folder, "GBA/SAVE/%s/%d", romName, foldern);
     my_mkdir(folder);
     f_chdir(folder);
@@ -650,7 +651,8 @@ void readSRAM_GBA(boolean browseFile, unsigned long sramSize, uint32_t pos)
     OledShowString(0,1,folder,8);
     // write new folder number back to eeprom
     foldern = foldern + 1;
-    save_dword(foldern);
+    // save_dword(foldern);
+    save_foldern("GBA", "SAVE", romName);
   }
 
   //open file on sd card
@@ -1115,7 +1117,8 @@ void readEeprom_GBA(word eepSize) {
   strcat(fileName, ".eep");
 
   // create a new folder for the save file
-  foldern = load_dword();
+  // foldern = load_dword();
+  foldern = load_foldern("GBA", "SAVE", romName);
 
   sprintf(folder, "GBA/SAVE/%s/%d", romName, foldern);
   my_mkdir(folder);
@@ -1128,7 +1131,8 @@ void readEeprom_GBA(word eepSize) {
 
   // write new folder number back to eeprom
   foldern = foldern + 1;
-  save_dword(foldern);
+  // save_dword(foldern);
+  save_foldern("GBA", "SAVE", romName);
 
   FIL tf;
 
@@ -1416,7 +1420,8 @@ void readFLASH_GBA (boolean browseFile, unsigned long flashSize, uint32_t pos)
     strcat(fileName, ".fla");
 
     // create a new folder for the save file
-    foldern = load_dword();
+    // foldern = load_dword();
+    foldern = load_foldern("GBA", "SAVE", romName);
 
     sprintf(folder, "GBA/SAVE/%s/%d", romName, foldern);
     my_mkdir(folder);
@@ -1428,7 +1433,8 @@ void readFLASH_GBA (boolean browseFile, unsigned long flashSize, uint32_t pos)
 
     // write new folder number back to eeprom
     foldern = foldern + 1;
-    save_dword(foldern);
+    // save_dword(foldern);
+    save_foldern("GBA", "SAVE", romName);
   }
 
 
