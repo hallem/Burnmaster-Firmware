@@ -158,6 +158,8 @@ void save_foldern(char* system, char* type, char* romName)
 
   sprintf(numFileName, "/%s/NUM/%s/%s.txt", system, type, romName);
 
+  FIL tf;
+
   if (f_open(&tf, numFileName, FA_CREATE_ALWAYS|FA_WRITE) == FR_OK)
   {
     f_printf(&tf, "%d", foldern);
