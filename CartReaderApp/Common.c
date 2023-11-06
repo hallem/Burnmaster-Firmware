@@ -122,7 +122,7 @@ void delayMicroseconds(uint16_t us)
   }
 }
 
-int load_foldern(char* system, char* type, char* romName)
+void load_foldern(char* system, char* type, char* romName)
 {
   char numFileName[64];
 
@@ -148,8 +148,6 @@ int load_foldern(char* system, char* type, char* romName)
   {
     foldern = 0;
   }
-
-  return foldern;
 }
 
 void save_foldern(char* system, char* type, char* romName)

@@ -522,8 +522,8 @@ void readROM_GBA()
   strcat(fileName, ".gba");
 
   // create a new folder for the rom file
-  // foldern = load_dword(); // comment out
-  foldern = load_foldern("GBA", "ROM", romName);
+  // foldern = load_dword(); // this should be load_dword(foldern);
+  load_foldern("GBA", "ROM", romName);
 
   sprintf(folder, "/GBA/ROM/%s/%d", romName, foldern);
   my_mkdir(folder);
@@ -536,7 +536,7 @@ void readROM_GBA()
 
   // write new folder number back to eeprom
   foldern = foldern + 1;
-  // save_dword(foldern); // comment out
+  // save_dword(foldern);
   save_foldern("GBA", "ROM", romName);
 
   FIL tf;
@@ -580,7 +580,8 @@ boolean compare_checksum_GBA ()
   strcat(fileName, ".gba");
 
   // last used rom folder
-  foldern = load_dword();
+  // foldern = load_dword(); // this should be load_dword(foldern);
+  load_foldern("GBA", "ROM", romName);
   sprintf(folder, "/GBA/ROM/%s/%d", romName, foldern - 1);
   f_chdir(folder);
 
@@ -640,8 +641,8 @@ void readSRAM_GBA(boolean browseFile, unsigned long sramSize, uint32_t pos)
     strcat(fileName, ".srm");
 
     // create a new folder for the save file
-    // foldern = load_dword();
-    foldern = load_foldern("GBA", "SAVE", romName);
+    // foldern = load_dword(); // this should be load_dword(foldern);
+    load_foldern("GBA", "SAVE", romName);
     sprintf(folder, "GBA/SAVE/%s/%d", romName, foldern);
     my_mkdir(folder);
     f_chdir(folder);
@@ -1117,8 +1118,8 @@ void readEeprom_GBA(word eepSize) {
   strcat(fileName, ".eep");
 
   // create a new folder for the save file
-  // foldern = load_dword();
-  foldern = load_foldern("GBA", "SAVE", romName);
+  // foldern = load_dword(); // this should be load_dword(foldern);
+  load_foldern("GBA", "SAVE", romName);
 
   sprintf(folder, "GBA/SAVE/%s/%d", romName, foldern);
   my_mkdir(folder);
@@ -1420,8 +1421,8 @@ void readFLASH_GBA (boolean browseFile, unsigned long flashSize, uint32_t pos)
     strcat(fileName, ".fla");
 
     // create a new folder for the save file
-    // foldern = load_dword();
-    foldern = load_foldern("GBA", "SAVE", romName);
+    // foldern = load_dword(); // this should be load_dword(foldern);
+    load_foldern("GBA", "SAVE", romName);
 
     sprintf(folder, "GBA/SAVE/%s/%d", romName, foldern);
     my_mkdir(folder);
