@@ -21,7 +21,7 @@ unsigned long cartSize;
 char cartID[5];
 byte romVersion = 0;
 
-
+char numFileName[64]; // added to track numbers for saves and roms by a file
 
 
 
@@ -523,7 +523,33 @@ void readROM_GBA()
   strcat(fileName, ".gba");
 
   // create a new folder for the rom file
-  foldern = load_dword();
+
+  /*******************************************************************/
+  // foldern = load_dword(); // comment out
+  // look for the file "/GBA/NUM/ROM/<romName>.txt"
+
+  sprintf(numFileName, "/GBA/NUM/ROM/%s.txt", romName);
+
+  FIL tf;
+  UINT rdt;
+
+  if (f_open(&tf, numFileName, FA_READ) == FR_OK)
+  {
+    if (f_read(&tf, &foldern, 4, &rdt) != FR_OK)
+    {
+      foldern = -2;
+    }
+
+    f_close(&tf);
+  }
+  else
+  {
+    foldern = 0;
+  }
+
+  // if exists, read the number and store in foldern (follow the gba.txt code as an example)
+  /*******************************************************************/
+
   sprintf(folder, "/GBA/ROM/%s/%d", romName, foldern);
   my_mkdir(folder);
   f_chdir(folder);
@@ -534,10 +560,25 @@ void readROM_GBA()
   OledShowString(0,1,folder,8);
 
   // write new folder number back to eeprom
-  foldern = foldern + 1;
-  save_dword(foldern);
 
-  FIL tf;
+  /*******************************************************************/
+  foldern = foldern + 1;
+  // save_dword(foldern); // comment out
+  // open the file "/GBA/NUM/ROM/<romName>.txt" with FA_CREATE_ALWAYS|FA_WRITE (create or truncate)
+
+  if (f_open(&tf, numFileName, FA_CREATE_ALWAYS|FA_WRITE) == FR_OK)
+  {
+    if (f_write(&tf, &foldern, 4, &rdt) != FR_OK)
+    {
+      foldern = -3;
+      save_dword(foldern);
+    }
+  }
+
+  // write the number to the file
+  /*******************************************************************/
+
+  //FIL tf; // commented out to move declaration higher -MJH
   //open file on sd card
   if (f_open(&tf,fileName, FA_CREATE_ALWAYS|FA_WRITE) != FR_OK) 
   {
