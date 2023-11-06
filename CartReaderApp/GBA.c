@@ -539,8 +539,11 @@ void readROM_GBA()
   {
     if (!f_gets(&sfoldern, 16, &tf))
     {
-      foldern = -2;
       print_Error("Can't read num file!", false);
+    }
+    else
+    {
+      foldern = atoi(sfoldern);
     }
 
     f_close(&tf);
