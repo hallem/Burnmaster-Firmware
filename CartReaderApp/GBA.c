@@ -21,7 +21,6 @@ unsigned long cartSize;
 char cartID[5];
 byte romVersion = 0;
 
-char numFileName[64]; // added to track numbers for saves and roms by a file
 
 
 
@@ -523,38 +522,8 @@ void readROM_GBA()
   strcat(fileName, ".gba");
 
   // create a new folder for the rom file
-
-  /*******************************************************************/
   // foldern = load_dword(); // comment out
-  // look for the file "/GBA/NUM/ROM/<romName>.txt"
-
-  sprintf(numFileName, "/GBA/NUM/ROM/%s.txt", romName);
-
-  FIL tf;
-  UINT rdt;
-  char sfoldern[16];
-  UINT wdt;
-
-  if (f_open(&tf, numFileName, FA_READ) == FR_OK)
-  {
-    if (!f_gets(&sfoldern, 16, &tf))
-    {
-      print_Error("Can't read num file!", false);
-    }
-    else
-    {
-      foldern = atoi(sfoldern);
-    }
-
-    f_close(&tf);
-  }
-  else
-  {
-    foldern = 0;
-  }
-
-  // if exists, read the number and store in foldern (follow the gba.txt code as an example)
-  /*******************************************************************/
+  foldern = load_foldern("GBA", "ROM", romName);
 
   sprintf(folder, "/GBA/ROM/%s/%d", romName, foldern);
   my_mkdir(folder);
@@ -566,26 +535,11 @@ void readROM_GBA()
   OledShowString(0,1,folder,8);
 
   // write new folder number back to eeprom
-
-  /*******************************************************************/
   foldern = foldern + 1;
   // save_dword(foldern); // comment out
-  // open the file "/GBA/NUM/ROM/<romName>.txt" with FA_CREATE_ALWAYS|FA_WRITE (create or truncate)
+  save_foldern("GBA", "ROM", romName);
 
-  if (f_open(&tf, numFileName, FA_CREATE_ALWAYS|FA_WRITE) == FR_OK)
-  {
-    f_printf(&tf, "%d", foldern);
-    f_close(&tf);
-  }
-  else
-  {
-    print_Error("Can't create num file!", false);
-  }
-
-  // write the number to the file
-  /*******************************************************************/
-
-  //FIL tf; // commented out to move declaration higher -MJH
+  FIL tf;
   //open file on sd card
   if (f_open(&tf,fileName, FA_CREATE_ALWAYS|FA_WRITE) != FR_OK) 
   {
@@ -607,7 +561,7 @@ void readROM_GBA()
     }
 
     // Write to SD
-    // UINT wdt; // commented out to move declaration higher -MJH
+    UINT wdt;
     f_write(&tf, sdBuffer, 512, &wdt);
   }
 

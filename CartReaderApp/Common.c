@@ -121,3 +121,50 @@ void delayMicroseconds(uint16_t us)
     __asm__("nop\n\t""nop\n\t""nop\n\t""nop\n\t""nop\n\t");
   }
 }
+
+int load_foldern(char* system, char* type, char* romName)
+{
+  char numFileName[64];
+
+  sprintf(numFileName, "/%s/NUM/%s/%s.txt", system, type, romName);
+
+  FIL tf;
+  char sfoldern[16];
+
+  if (f_open(&tf, numFileName, FA_READ) == FR_OK)
+  {
+    if (!f_gets(&sfoldern, 16, &tf))
+    {
+      print_Error("Can't read num file!", false);
+    }
+    else
+    {
+      foldern = atoi(sfoldern);
+    }
+
+    f_close(&tf);
+  }
+  else
+  {
+    foldern = 0;
+  }
+
+  return foldern;
+}
+
+void save_foldern(char* system, char* type, char* romName)
+{
+  char numFileName[64];
+
+  sprintf(numFileName, "/%s/NUM/%s/%s.txt", system, type, romName);
+
+  if (f_open(&tf, numFileName, FA_CREATE_ALWAYS|FA_WRITE) == FR_OK)
+  {
+    f_printf(&tf, "%d", foldern);
+    f_close(&tf);
+  }
+  else
+  {
+    print_Error("Can't create num file!", false);
+  }
+}
