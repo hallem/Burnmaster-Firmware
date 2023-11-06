@@ -582,7 +582,7 @@ void readROM_GBA()
   }
   else
   {
-    print_Error("Unable to create nf", false);
+    print_Error("Unable to create nf");
   }
 
   // write the number to the file
