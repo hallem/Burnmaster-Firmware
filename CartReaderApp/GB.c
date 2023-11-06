@@ -447,7 +447,7 @@ void readROM_GB() {
 
   // create a new folder for the rom file
   // load_dword(foldern);
-  foldern = load_foldern("GB", "ROM", romName);
+  load_foldern("GB", "ROM", romName);
   f_chdir("/");
   sprintf(folder, "GB/ROM/%s/%d", romName, foldern);
 
