@@ -64,7 +64,9 @@ void SysClockFree();
 
 void delayMicroseconds(uint16_t us);
 
+#ifdef FILE_FOLDERN
 void load_foldern(char* system, char* type, char* romName);
 void save_foldern(char* system, char* type, char* romName);
+#endif
 
 #endif

@@ -24,8 +24,9 @@ Purpose : Generic application start
 #include "flashparam.h"
 
 
-
-
+// Controls whether the folder number is written to a file
+// to save state on power off.
+// #define FILE_FOLDERN
 
 
 //PC5是卡带3V3电压档位，低电平有效，PB0是卡带5V电压档位，低电平有效

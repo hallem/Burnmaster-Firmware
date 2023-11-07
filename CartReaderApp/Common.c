@@ -122,6 +122,8 @@ void delayMicroseconds(uint16_t us)
   }
 }
 
+#ifdef FILE_FOLDERN
+
 void load_foldern(char* system, char* type, char* romName)
 {
   char numFileName[64];
@@ -168,3 +170,6 @@ void save_foldern(char* system, char* type, char* romName)
     print_Error("Can't create num file!", false);
   }
 }
+
+#endif
+j
