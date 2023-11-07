@@ -85,8 +85,8 @@ void delay(int n) {
 void ResetSystem()
 {
   //
-  __set_FAULTMASK(1);//关闭总中断
-  NVIC_SystemReset();//请求单片机重启
+  __set_FAULTMASK(1);//
+  NVIC_SystemReset();//
 }
 
 void SysClockFree()
@@ -172,4 +172,3 @@ void save_foldern(char* system, char* type, char* romName)
 }
 
 #endif
-j
