@@ -1,4 +1,4 @@
-name: Build Firmware
+name: Build Firmware with FILE_FOLDERN
 on:
   workflow_dispatch:
   push:
@@ -24,9 +24,9 @@ jobs:
       - name: Compile Firmware
         run: |
             cd arm_segger_embedded_studio_v622a_linux_x64/bin
-            ./emBuild -D FILE_FOLDERN -config "Debug" ${{ github.workspace }}//Burnmaster-Firmware/CartReaderApp/GDCartReader.emProject
+            ./emBuild -config "Debug_with_File_FolderN" ${{ github.workspace }}//Burnmaster-Firmware/CartReaderApp/GDCartReader.emProject
           
       - uses: actions/upload-artifact@v3
         with:
-          name: Burnmaster-Firmware
+          name: Burnmaster-Firmware with FILE_FOLDERN
           path: ${{ github.workspace }}//Burnmaster-Firmware/CartReaderApp/Output/Debug/Exe/GDCartReader.bin
