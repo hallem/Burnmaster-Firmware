@@ -29,4 +29,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: Burnmaster-Firmware with FILE_FOLDERN
-          path: ${{ github.workspace }}//Burnmaster-Firmware/CartReaderApp/Output/Debug/Exe/GDCartReader.bin
+          path: ${{ github.workspace }}//Burnmaster-Firmware/CartReaderApp/Output/Debug_with_File_FolderN/Exe/GDCartReader.bin
