@@ -98,7 +98,7 @@ void aboutScreen()
   OledShowString(8,2,(char *)("Cart Flasher"),16);
   OledShowString(20,4,(char *)("Ver:1.08 MJH"),8);
   OledShowString(20,5,(char *)("2023.11"),8);
-  OledShowString(20,6,(char *)("Orz Studio (with MJH)"),8);
+  OledShowString(20,6,(char *)("Orz Studio (MJH)"),8);
 
   OledShowString(0,7,(char *)("Press OK Button..."),8);
 
