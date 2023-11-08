@@ -154,8 +154,11 @@ void load_foldern(char* system, char* type, char* romName)
 
 void save_foldern(char* system, char* type, char* romName)
 {
+  char folder[36];
   char numFileName[64];
 
+  sprintf(folder, "/%s/NUM/%s", system, type);
+  my_mkdir(folder);
   sprintf(numFileName, "/%s/NUM/%s/%s.txt", system, type, romName);
 
   FIL tf;
